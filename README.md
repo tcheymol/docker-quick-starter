@@ -3,6 +3,11 @@
 ## Setup
 
 * Clone the repository
+
+``` bash
+git clone git@github.com:tcheymol/docker-quick-starter.git
+```
+
 * Generate the frontend
 
 ``` bash

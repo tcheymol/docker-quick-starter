@@ -3,7 +3,13 @@
   "version": "1.0.0",
   "main": "server.js",
   "license": "MIT",
+  "scripts": {
+    "start:watch": "pm2-docker start server.js --watch",
+    "start": "pm2-docker start server.js --watch"
+  },
   "dependencies": {
-    "express": "^4.15.4"
+    "express": "^4.15.4",
+    "pm2": "^2.6.1",
+    "pm2-docker": "^2.1.0"
   }
 }

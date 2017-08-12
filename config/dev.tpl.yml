@@ -1,0 +1,46 @@
+version: '2'
+
+services:
+  dev-renault-digital-bbp-${env}:
+    cpu_shares: 200 # Set these values when you know what you do!
+    mem_limit: 412m # Set these values when you know what you do!
+    image: ${image}-server-dev:${tag}
+    environment:
+      - APP_NAME="bbp-front-app"
+      - BACK_SERVICE="dev-renault-digital-bbp-${env}-api:8080"
+    ports:
+      - '80:80'
+    links:
+      - api:api
+    volumes:
+      - ./../app/public:/var/www/html
+  app:
+    image: ${image}-app-dev:${tag}
+    environment:
+      - APP_NAME="bbp-front-app"
+      - NODE_ENV=loc
+    volumes:
+      - ./../app:/usr/src/app
+  api:
+    cpu_shares: 480 # Set these values when you know what you do!
+    mem_limit: 824m # Set these values when you know what you do!
+    image: ${image}-api-dev:${tag}
+    environment:
+      - APP_NAME="bbp-api"
+      - DB_NAME=bbp
+      - DB_USER=bbp
+      - DB_PASSWORD=bbp
+      - DB_HOST="db"
+      - DB_PORT=5432
+      - NODE_ENV=loc 
+    links:
+      - db:db
+    ports:
+      - '8080'
+    volumes:
+      - ./../api:/usr/src/api
+  db:
+    build: ./../docker/psql
+    env_file: ./../docker/psql/psql.env
+    ports:
+      - "5432:5432"

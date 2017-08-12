@@ -1,0 +1,10 @@
+FROM openresty/openresty:alpine
+
+MAINTAINER thibautc@theodo.fr
+
+ENV TERM=xterm
+WORKDIR /usr/local/openresty/nginx/conf
+ADD /config/nginx/nginx.dev.conf /usr/local/openresty/nginx/conf/nginx.conf
+
+EXPOSE 80
+ENTRYPOINT ["/usr/local/openresty/bin/openresty", "-g", "daemon off;"]

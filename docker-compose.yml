@@ -1,0 +1,55 @@
+version: '3'
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    image: nginx
+    environment:
+      - APP_NAME=nginx
+      - BACK_SERVICE=api
+    ports:
+      - '80:80'
+    links:
+      - api:api
+      - app:app
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    image: app
+    environment:
+      - APP_NAME=app
+      - NODE_ENV=dev
+    volumes:
+      - ./app:/usr/src/app
+    ports:
+      - "3000:3000"
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    image: api
+    volumes:
+      - ./api:/usr/src/api
+    environment:
+      - APP_NAME=api
+      - DB_NAME=psql_database
+      - DB_USER=psql_user
+      - DB_PASSWORD=psql_password
+      - DB_HOST=db
+      - DB_PORT=5432
+      - ENV=dev
+    links:
+      - db
+      - db:database
+    depends_on:
+      - db
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    env_file: ./psql.env
+    image: db
+    ports:
+      - "5432:5432"

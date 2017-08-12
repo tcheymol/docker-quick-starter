@@ -1,0 +1,17 @@
+{
+  "name": "docker-stack",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "",
+  "author": "Thibaut Cheymol <thibautc@theodo.fr>",
+  "license": "MIT",
+  "scripts": {
+    "postinstall": "yarn install:app && yarn install:api",
+    "start": "docker-compose -f docker-compose.yml up",
+    "start:build": "docker-compose -f docker-compose.yml up --build",
+    "install:app": "cd app && yarn && cd ..",
+    "install:api": "cd api && yarn && cd ..",
+    "build:app": "cd app && yarn build && cd .."
+  },
+  "dependencies": {}
+}

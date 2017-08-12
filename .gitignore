@@ -1,0 +1,6 @@
+.DS_Store
+cache/
+target/*
+node_modules/
+.vscode
+.history

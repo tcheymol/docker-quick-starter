@@ -15,7 +15,6 @@ yarn global add create-react-app
 create-react-app app
 ```
 
-* Accept the default choices
 * Start your containers :
 
 ``` bash
